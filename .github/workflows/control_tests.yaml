@@ -1,0 +1,41 @@
+- name: Install pytest and flake8
+  run: |
+    pip install pytest
+    pip install flake8
+
+- name: Run tests
+  run: |
+    pytest
+
+- name: Run flake8
+  uses: py-actions/flake8@v2
+With the keyword run, you just run this command in a shell Ubuntu on the instance. To use flake8, you have to use a workflow already existing on the github marketplace.
+
+Here is your final workflow:
+
+name: Control Push
+on: push
+jobs:
+  qa:
+    name: Check tests
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
+      - name: Install pytest and flake8
+        run: |
+          pip install pytest
+          pip install flake8
+
+      - name: Run tests
+        run: |
+          pytest
+
+      - name: Run flake8
+        uses: py-actions/flake8@v2
